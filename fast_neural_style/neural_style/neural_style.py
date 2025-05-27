@@ -16,6 +16,26 @@ import utils
 from transformer_net import TransformerNet
 from vgg import Vgg16
 
+from torch.utils.data import Dataset
+from PIL import Image
+
+class FlatImageFolder(Dataset):
+    def __init__(self, root, transform=None):
+        self.paths = sorted([
+            os.path.join(root, fname) for fname in os.listdir(root)
+            if fname.lower().endswith(('.png', '.jpg', '.jpeg'))
+        ])
+        self.transform = transform
+
+    def __getitem__(self, index):
+        img = Image.open(self.paths[index]).convert('RGB')
+        if self.transform:
+            img = self.transform(img)
+        return img, 0  # dummy label
+
+    def __len__(self):
+        return len(self.paths)
+
 
 def check_paths(args):
     try:
@@ -45,7 +65,7 @@ def train(args):
         transforms.ToTensor(),
         transforms.Lambda(lambda x: x.mul(255))
     ])
-    train_dataset = datasets.ImageFolder(args.dataset, transform)
+    train_dataset = FlatImageFolder(args.dataset, transform)
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size)
 
     transformer = TransformerNet().to(device)
