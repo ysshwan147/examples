@@ -14,6 +14,15 @@ The model uses the method described in [Perceptual Losses for Real-Time Style Tr
 
 The program is written in Python, and uses [pytorch](http://pytorch.org/), [scipy](https://www.scipy.org). A GPU is not necessary, but can provide a significant speed up especially for training a new model. Regular sized images can be styled on a laptop or desktop using saved models.
 
+## Installation
+
+'''
+cd examples/fast_neural_style
+conda create -n style python=3.10
+conda activate style
+pip install -r requirements.txt
+'''
+
 ## Usage
 
 Stylize image
