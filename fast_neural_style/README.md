@@ -16,12 +16,12 @@ The program is written in Python, and uses [pytorch](http://pytorch.org/), [scip
 
 ## Installation
 
-'''
+```
 cd examples/fast_neural_style
 conda create -n style python=3.10
 conda activate style
 pip install -r requirements.txt
-'''
+```
 
 ## Usage
 
